@@ -635,7 +635,7 @@ describe("issue 28756", () => {
 
 describeEE("issue 29076", () => {
   beforeEach(() => {
-    restore("default");
+    restore();
 
     cy.intercept("/api/dashboard/*/dashcard/*/card/*/query").as("cardQuery");
 
