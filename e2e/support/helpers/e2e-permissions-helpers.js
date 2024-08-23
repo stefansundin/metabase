@@ -1,3 +1,4 @@
+import { SAMPLE_DB_ID } from "e2e/support/cypress_data";
 import { popover } from "e2e/support/helpers";
 
 export function selectSidebarItem(item) {
@@ -159,5 +160,19 @@ export function assertDatasetReqIsSandboxed(
         );
       }
     }
+  });
+}
+
+export function blockUserGroupPermissions(
+  groupName,
+  databaseId = SAMPLE_DB_ID,
+) {
+  cy.updatePermissionsGraph({
+    [groupName]: {
+      [SAMPLE_DB_ID]: {
+        "view-data": "blocked",
+        "create-queries": "no",
+      },
+    },
   });
 }
