@@ -176,7 +176,7 @@ function Dashboard(props: DashboardProps) {
     addCardToDashboard,
     cancelFetchDashboardCardData,
     closeNavbar,
-    dashboard,
+    dashboard: dashboardTemp,
     dashboardId,
     editingOnLoad,
     fetchDashboard,
@@ -197,6 +197,20 @@ function Dashboard(props: DashboardProps) {
     parameterQueryParams,
     downloadsEnabled = true,
   } = props;
+
+  const dashboard = useMemo(
+    () =>
+      dashboardTemp
+        ? {
+            ...dashboardTemp,
+            dashcards: dashboardTemp.dashcards.map((dashcard: any) => ({
+              ...dashcard,
+              card: { ...dashcard.card, dashboard_id: 12 },
+            })),
+          }
+        : null,
+    [dashboardTemp],
+  );
 
   const dispatch = useDispatch();
 
@@ -264,6 +278,7 @@ function Dashboard(props: DashboardProps) {
 
       try {
         const dashboard = result.payload.dashboard;
+
         if (editingOnLoad) {
           onRefreshPeriodChange(null);
           setEditingDashboard(dashboard);
