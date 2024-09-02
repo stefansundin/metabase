@@ -2,7 +2,7 @@ import { t } from "ttag";
 
 import { Box, Flex } from "metabase/ui";
 
-import type { NotebookStepProps } from "../../types";
+import type { NotebookSingleStepProps } from "../../types";
 import { AggregateStep } from "../AggregateStep";
 import { BreakoutStep } from "../BreakoutStep";
 
@@ -11,7 +11,7 @@ export function SummarizeStep({
   color,
   isLastOpened,
   ...props
-}: NotebookStepProps) {
+}: NotebookSingleStepProps) {
   const isMetric = step.question.type() === "metric";
 
   return (

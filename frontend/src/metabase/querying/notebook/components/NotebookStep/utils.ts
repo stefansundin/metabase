@@ -5,8 +5,8 @@ import { color } from "metabase/lib/colors";
 import type { IconName } from "metabase/ui";
 
 import type {
+  NotebookSingleStepProps,
   NotebookStepHeaderProps,
-  NotebookStepProps,
   NotebookStepType,
 } from "../../types";
 import { AggregateStep } from "../AggregateStep";
@@ -29,7 +29,7 @@ type StepUIItem = {
   transparent?: boolean;
   compact?: boolean;
   color: () => string;
-  Step: ComponentType<NotebookStepProps>;
+  Step: ComponentType<NotebookSingleStepProps>;
   StepHeader: ComponentType<NotebookStepHeaderProps>;
 };
 

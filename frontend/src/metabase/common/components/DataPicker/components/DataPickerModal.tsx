@@ -32,7 +32,7 @@ import {
 
 import { TablePicker } from "./TablePicker";
 
-interface Props {
+export type DataPickerModalProps = {
   /**
    * Limit selection to a particular database
    */
@@ -42,7 +42,7 @@ interface Props {
   models?: DataPickerValue["model"][];
   onChange: (value: TableId) => void;
   onClose: () => void;
-}
+};
 
 const QUESTION_PICKER_MODELS: CollectionItemModel[] = ["card"];
 
@@ -65,7 +65,7 @@ export const DataPickerModal = ({
   models = ["table", "card", "dataset"],
   onChange,
   onClose,
-}: Props) => {
+}: DataPickerModalProps) => {
   const hasNestedQueriesEnabled = useSetting("enable-nested-queries");
   const { hasQuestions, hasModels, hasMetrics } = useAvailableData({
     databaseId,

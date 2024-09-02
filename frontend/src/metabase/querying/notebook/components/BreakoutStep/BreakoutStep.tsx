@@ -4,7 +4,7 @@ import { t } from "ttag";
 import { QueryColumnPicker } from "metabase/common/components/QueryColumnPicker";
 import * as Lib from "metabase-lib";
 
-import type { NotebookStepProps } from "../../types";
+import type { NotebookSingleStepProps } from "../../types";
 import { ClauseStep } from "../ClauseStep";
 
 export function BreakoutStep({
@@ -14,7 +14,7 @@ export function BreakoutStep({
   isLastOpened,
   readOnly,
   updateQuery,
-}: NotebookStepProps) {
+}: NotebookSingleStepProps) {
   const { stageIndex } = step;
 
   const breakouts = useMemo(() => {

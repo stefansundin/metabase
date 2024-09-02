@@ -4,6 +4,7 @@ import { t } from "ttag";
 
 import {
   DataPickerModal,
+  type DataPickerModalProps,
   getDataPickerValue,
 } from "metabase/common/components/DataPicker";
 import { METAKEY } from "metabase/lib/browser";
@@ -22,7 +23,7 @@ import { NotebookCell } from "../NotebookCell";
 
 import { getUrl } from "./utils";
 
-interface NotebookDataPickerProps {
+export type NotebookDataPickerProps = {
   title: string;
   query: Lib.Query;
   stageIndex: number;
@@ -35,7 +36,8 @@ interface NotebookDataPickerProps {
     table: Lib.TableMetadata | Lib.CardMetadata,
     metadataProvider: Lib.MetadataProvider,
   ) => void;
-}
+  models?: DataPickerModalProps["models"];
+};
 
 export function NotebookDataPicker({
   title,
@@ -47,6 +49,12 @@ export function NotebookDataPicker({
   hasMetrics,
   isDisabled,
   onChange,
+  models = [
+    "table",
+    "card",
+    "dataset",
+    ...(hasMetrics ? ["metric" as const] : []),
+  ],
 }: NotebookDataPickerProps) {
   const [isOpen, setIsOpen] = useState(!table);
   const store = useStore();
@@ -133,12 +141,7 @@ export function NotebookDataPicker({
           title={title}
           value={tableValue}
           databaseId={databaseId}
-          models={[
-            "table",
-            "card",
-            "dataset",
-            ...(hasMetrics ? ["metric" as const] : []),
-          ]}
+          models={models}
           onChange={handleChange}
           onClose={() => setIsOpen(false)}
         />

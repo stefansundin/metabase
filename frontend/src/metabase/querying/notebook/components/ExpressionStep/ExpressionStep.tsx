@@ -2,7 +2,7 @@ import { ExpressionWidget } from "metabase/query_builder/components/expressions/
 import * as Lib from "metabase-lib";
 import { getUniqueExpressionName } from "metabase-lib/v1/queries/utils/expression";
 
-import type { NotebookStepProps } from "../../types";
+import type { NotebookSingleStepProps } from "../../types";
 import { ClauseStep } from "../ClauseStep";
 
 export const ExpressionStep = ({
@@ -12,7 +12,7 @@ export const ExpressionStep = ({
   reportTimezone,
   readOnly,
   step,
-}: NotebookStepProps): JSX.Element => {
+}: NotebookSingleStepProps): JSX.Element => {
   const { query, stageIndex } = step;
   const expressions = Lib.expressions(query, stageIndex);
 

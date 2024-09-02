@@ -7,16 +7,37 @@ import {
   isQuestionDirty,
   isQuestionRunnable,
 } from "metabase/query_builder/utils/question";
-import { Notebook as QBNotebook } from "metabase/querying/notebook/components/Notebook";
+import {
+  Notebook as QBNotebook,
+  type NotebookProps as QBNotebookProps,
+} from "metabase/querying/notebook/components/Notebook";
 import { getSetting } from "metabase/selectors/settings";
 import { ScrollArea } from "metabase/ui";
 import type Question from "metabase-lib/v1/Question";
 
-type NotebookProps = { onApply?: () => void };
+const notebookModelFilterMap = {
+  metric: "metric",
+  model: "dataset",
+  question: "card",
+  table: "table",
+} as const;
 
-export const Notebook = ({ onApply = () => {} }: NotebookProps) => {
-  // Loads databases and metadata so we can show notebook steps for the selected data source
+const getNotebookModelFilter = (
+  models: NotebookProps["models"],
+): QBNotebookProps["models"] =>
+  models.map(model => notebookModelFilterMap[model]);
+
+type NotebookProps = {
+  onApply?: () => void;
+  models: (keyof typeof notebookModelFilterMap)[];
+};
+
+export const Notebook = ({ onApply = () => {}, models }: NotebookProps) => {
+  // Loads databases and metadata, so we can show notebook steps for the selected data source
   useDatabaseListQuery();
+
+  const modelFilterList: QBNotebookProps["models"] =
+    getNotebookModelFilter(models);
 
   const { question, originalQuestion, updateQuestion, runQuestion } =
     useInteractiveQuestionContext();
@@ -53,6 +74,7 @@ export const Notebook = ({ onApply = () => {} }: NotebookProps) => {
           }}
           setQueryBuilderMode={() => {}}
           hasVisualizeButton={true}
+          models={modelFilterList}
         />
       </ScrollArea>
     )

@@ -1,3 +1,4 @@
+import type { NotebookDataPickerProps } from "metabase/querying/notebook/components/NotebookDataPicker";
 import type * as Lib from "metabase-lib";
 import type Question from "metabase-lib/v1/Question";
 
@@ -42,7 +43,7 @@ export interface NotebookStepAction {
   action: (args: { openStep: (id: string) => void }) => void;
 }
 
-export interface NotebookStepProps {
+export type NotebookSingleStepProps = {
   step: NotebookStep;
   query: Lib.Query;
   stageIndex: number;
@@ -51,7 +52,7 @@ export interface NotebookStepProps {
   reportTimezone: string;
   readOnly?: boolean;
   updateQuery: (query: Lib.Query) => Promise<void>;
-}
+} & Pick<NotebookDataPickerProps, "models">;
 
 export interface NotebookStepHeaderProps {
   step: NotebookStep;

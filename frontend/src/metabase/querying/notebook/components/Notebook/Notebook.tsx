@@ -7,6 +7,7 @@ import * as Lib from "metabase-lib";
 import type Question from "metabase-lib/v1/Question";
 
 import { NotebookStepList } from "../NotebookStepList";
+import type { NotebookStepListProps } from "../NotebookStepList/NotebookStepList";
 
 export type NotebookProps = {
   question: Question;
@@ -19,7 +20,7 @@ export type NotebookProps = {
   runQuestionQuery: () => Promise<void>;
   setQueryBuilderMode: (mode: string) => void;
   readOnly?: boolean;
-};
+} & Pick<NotebookStepListProps, "models">;
 
 export const Notebook = ({
   updateQuestion,
@@ -32,6 +33,7 @@ export const Notebook = ({
   hasVisualizeButton = true,
   runQuestionQuery,
   setQueryBuilderMode,
+  models,
 }: NotebookProps) => {
   const dispatch = useDispatch();
 
@@ -74,6 +76,7 @@ export const Notebook = ({
         question={question}
         reportTimezone={reportTimezone}
         readOnly={readOnly}
+        models={models}
       />
       {hasVisualizeButton && isRunnable && (
         <Button variant="filled" style={{ minWidth: 220 }} onClick={visualize}>

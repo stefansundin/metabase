@@ -10,6 +10,7 @@ import type { Query } from "metabase-lib";
 
 import type {
   NotebookStep as INotebookStep,
+  NotebookSingleStepProps,
   NotebookStepAction,
 } from "../../types";
 
@@ -29,7 +30,7 @@ function hasLargeButton(action: NotebookStepAction) {
   return !getStepConfig(action.type).compact;
 }
 
-interface NotebookStepProps {
+export type NotebookStepProps = {
   step: INotebookStep;
   isLastStep: boolean;
   isLastOpened: boolean;
@@ -37,7 +38,7 @@ interface NotebookStepProps {
   readOnly?: boolean;
   openStep: (id: string) => void;
   updateQuery: (query: Query) => Promise<void>;
-}
+} & Pick<NotebookSingleStepProps, "models">;
 
 export function NotebookStep({
   step,
@@ -47,6 +48,7 @@ export function NotebookStep({
   openStep,
   updateQuery,
   readOnly = false,
+  models,
 }: NotebookStepProps) {
   const [isPreviewOpen, { turnOn: openPreview, turnOff: closePreview }] =
     useToggle(false);
@@ -129,6 +131,7 @@ export function NotebookStep({
               isLastOpened={isLastOpened}
               reportTimezone={reportTimezone}
               readOnly={readOnly}
+              models={models}
             />
           </StepContent>
           {!readOnly && (

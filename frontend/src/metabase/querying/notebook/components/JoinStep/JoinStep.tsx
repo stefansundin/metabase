@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import * as Lib from "metabase-lib";
 
-import type { NotebookStepProps } from "../../types";
+import type { NotebookSingleStepProps } from "../../types";
 
 import { Join } from "./Join";
 import { JoinDraft } from "./JoinDraft";
@@ -14,7 +14,7 @@ export function JoinStep({
   color,
   readOnly: isReadOnly = false,
   updateQuery,
-}: NotebookStepProps) {
+}: NotebookSingleStepProps) {
   const joins = useMemo(
     () => Lib.joins(query, stageIndex),
     [query, stageIndex],
