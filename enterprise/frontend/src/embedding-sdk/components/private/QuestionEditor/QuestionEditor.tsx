@@ -5,13 +5,17 @@ import type { InteractiveQuestionProps } from "embedding-sdk/components/public/I
 import { InteractiveQuestion } from "embedding-sdk/components/public/InteractiveQuestion";
 import { Box, Group, Overlay, Paper, Tabs } from "metabase/ui";
 
+import type { NotebookProps } from "../InteractiveQuestion/components";
 import { useInteractiveQuestionContext } from "../InteractiveQuestion/context";
 
 export type QuestionEditorProps = {
   isSaveEnabled?: boolean;
-};
+} & Pick<NotebookProps, "models">;
 
-const QuestionEditorInner = ({ isSaveEnabled }: QuestionEditorProps) => {
+const QuestionEditorInner = ({
+  isSaveEnabled,
+  models,
+}: QuestionEditorProps) => {
   const { queryResults, runQuestion } = useInteractiveQuestionContext();
 
   const [activeTab, setActiveTab] = useState<
@@ -59,6 +63,7 @@ const QuestionEditorInner = ({ isSaveEnabled }: QuestionEditorProps) => {
         <Tabs.Panel value="notebook">
           <InteractiveQuestion.Notebook
             onApply={() => setActiveTab("visualization")}
+            models={models}
           />
         </Tabs.Panel>
 
@@ -82,8 +87,9 @@ export const QuestionEditor = ({
   questionId,
   isSaveEnabled = true,
   plugins,
+  models,
 }: InteractiveQuestionProps & QuestionEditorProps) => (
   <InteractiveQuestion questionId={questionId} plugins={plugins}>
-    <QuestionEditorInner isSaveEnabled={isSaveEnabled} />
+    <QuestionEditorInner isSaveEnabled={isSaveEnabled} models={models} />
   </InteractiveQuestion>
 );
