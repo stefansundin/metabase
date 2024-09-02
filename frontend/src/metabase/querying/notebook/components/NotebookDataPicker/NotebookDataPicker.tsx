@@ -36,8 +36,7 @@ export type NotebookDataPickerProps = {
     table: Lib.TableMetadata | Lib.CardMetadata,
     metadataProvider: Lib.MetadataProvider,
   ) => void;
-  models?: DataPickerModalProps["models"];
-};
+} & Pick<DataPickerModalProps, "models">;
 
 export function NotebookDataPicker({
   title,
