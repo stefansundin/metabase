@@ -25,7 +25,7 @@ const notebookModelFilterMap = {
 const getNotebookModelFilter = (
   models: NotebookProps["models"],
 ): QBNotebookProps["models"] =>
-  models.map(model => notebookModelFilterMap[model]);
+  models?.map(model => notebookModelFilterMap[model]);
 
 export type NotebookProps = {
   onApply?: () => void;
