@@ -1,21 +1,25 @@
 import {
   QuestionEditor,
-  type QuestionEditorProps,
+  QuestionEditorProps,
 } from "embedding-sdk/components/private/QuestionEditor";
 
 import type { InteractiveQuestionProps } from "../InteractiveQuestion";
 
-type CreateQuestionProps = Pick<InteractiveQuestionProps, "plugins"> &
+type CreateQuestionProps = Omit<InteractiveQuestionProps, "questionId"> &
   QuestionEditorProps;
 
 export const CreateQuestion = ({
   plugins,
   isSaveEnabled,
   models,
+  onSave,
+  onBeforeSave,
 }: CreateQuestionProps = {}) => (
   <QuestionEditor
     plugins={plugins}
     isSaveEnabled={isSaveEnabled}
     models={models}
+    onBeforeSave={onBeforeSave}
+    onSave={onSave}
   />
 );
