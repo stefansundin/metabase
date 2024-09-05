@@ -51,12 +51,8 @@ export function Sidesheet({
         data-testid="sidesheet"
         className={Styles.SidesheetContent}
       >
-        <Modal.Header bg="bg-light" pt="md">
-          {title && (
-            <Modal.Title py="md" pr="sm">
-              {title}
-            </Modal.Title>
-          )}
+        <Modal.Header bg="bg-light" pt="md" px="xl">
+          {title && <Modal.Title py="md">{title}</Modal.Title>}
           <Modal.CloseButton
             c="var(--mb-color-text-black)"
             aria-label={t`Close`}

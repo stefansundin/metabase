@@ -20,7 +20,6 @@ import Link from "metabase/core/components/Link";
 import { revertToRevision, updateDashboard } from "metabase/dashboard/actions";
 import { DASHBOARD_DESCRIPTION_MAX_LENGTH } from "metabase/dashboard/constants";
 import { useDispatch, useSelector } from "metabase/lib/redux";
-import { PLUGIN_CACHING } from "metabase/plugins";
 import { getUser } from "metabase/selectors/user";
 import { getShowMetabaseLinks } from "metabase/selectors/whitelabel";
 import {
@@ -124,8 +123,6 @@ export function DashboardInfoSidebar({
                   descriptionError={descriptionError}
                   setDescriptionError={setDescriptionError}
                   canWrite={canWrite}
-                  onClose={onClose}
-                  isOpen={isOpen}
                 />
               </Tabs.Panel>
               <Tabs.Panel value={Tab.History}>
@@ -150,8 +147,6 @@ const OverviewTab = ({
   descriptionError,
   setDescriptionError,
   canWrite,
-  onClose,
-  isOpen,
 }: {
   dashboard: Dashboard;
   handleDescriptionChange: (description: string) => void;
@@ -159,14 +154,10 @@ const OverviewTab = ({
   descriptionError: string | null;
   setDescriptionError: (error: string | null) => void;
   canWrite: boolean;
-  onClose: () => void;
-  isOpen: boolean;
 }) => {
   const lastEditDate = dashboard.updated_at;
   const lastEditor = formatEditorName(dashboard["last-edit-info"]);
-
   const showMetabaseLinks = useSelector(getShowMetabaseLinks);
-  const [page, setPage] = useState<"caching" | null>(null);
 
   return (
     <Stack spacing="lg">
@@ -197,9 +188,7 @@ const OverviewTab = ({
           {c(
             "This phrase describes when a dashboard was last edited, and by whom. {1} is the date. {0} is the name of the editor.",
           ).jt`${(
-            <>
-              <DateTime unit="day" value={lastEditDate} />
-            </>
+            <DateTime unit="day" value={lastEditDate} />
           )} by ${lastEditor}`}
         </Flex>
       </SidesheetCard>
@@ -245,14 +234,6 @@ const OverviewTab = ({
             />
           </Group>
         </SidesheetCard>
-      )}
-      {page === "caching" && (
-        <PLUGIN_CACHING.DashboardCachingStrategySidebar
-          dashboard={dashboard}
-          setPage={setPage}
-          isOpen={isOpen}
-          onClose={onClose}
-        />
       )}
     </Stack>
   );

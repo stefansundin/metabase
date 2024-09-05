@@ -44,7 +44,7 @@ export class FullPageModal extends Component<
     this._modalElement = document.createElement("div");
     this._modalElement.className = cx(
       ModalS.ModalContainer,
-      this.props.className,
+      this.props.containerClassName,
     );
     document.body.appendChild(this._modalElement);
 
