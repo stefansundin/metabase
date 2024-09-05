@@ -64,6 +64,11 @@ export const getExtraButtons = ({
   });
 
   if (canEdit) {
+    extraButtons.push({
+      separator: true,
+      key: "separator-before-ee-buttons-and-trash",
+    });
+
     extraButtons.push(...PLUGIN_DASHBOARD_HEADER.extraButtons(dashboard));
 
     extraButtons.push({
@@ -72,6 +77,9 @@ export const getExtraButtons = ({
       link: `${pathname}/archive`,
     });
   }
+  extraButtons.push({
+    title: t`Edit settings`,
+  });
 
   return extraButtons;
 };

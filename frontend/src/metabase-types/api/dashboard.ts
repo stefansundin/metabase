@@ -72,6 +72,9 @@ export interface Dashboard {
 
   /* Indicates whether static embedding for this dashboard has been published */
   enable_embedding: boolean;
+
+  // FIXME: is this string guaranteed to exist
+  entity_id?: string;
 }
 
 /** Dashboards with string ids, like x-rays, cannot have cache configurations */

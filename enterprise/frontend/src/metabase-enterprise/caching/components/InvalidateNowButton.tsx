@@ -6,6 +6,7 @@ import { c, t } from "ttag";
 import { IconInButton } from "metabase/admin/performance/components/StrategyForm.styled";
 import { useInvalidateTarget } from "metabase/admin/performance/hooks/useInvalidateTarget";
 import { useIsFormPending } from "metabase/admin/performance/hooks/useIsFormPending";
+import Styles from "metabase/admin/performance/performance.module.css";
 import type { ModelWithClearableCache } from "metabase/admin/performance/types";
 import { Form, FormProvider } from "metabase/forms";
 import { useConfirmation } from "metabase/hooks/use-confirmation";
@@ -40,7 +41,9 @@ const InvalidateNowFormBody = ({
   targetModel: ModelWithClearableCache;
 }) => {
   const { show: askConfirmation, modalContent: confirmationModal } =
-    useConfirmation();
+    useConfirmation({
+      modalProps: { containerClassName: Styles.ConfirmationModal },
+    });
   const { submitForm } = useFormikContext();
   const { wasFormRecentlyPending } = useIsFormPending(5000);
 

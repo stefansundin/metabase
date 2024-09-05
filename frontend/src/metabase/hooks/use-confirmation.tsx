@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { t } from "ttag";
 
-import _ConfirmContent from "metabase/components/ConfirmContent";
-import _Modal from "metabase/components/Modal";
-
-const Modal = _Modal as any;
-const ConfirmContent = _ConfirmContent as any;
+import ConfirmContent from "metabase/components/ConfirmContent";
+import Modal from "metabase/components/Modal";
+import type { ModalProps } from "metabase/components/Modal/Modal";
 
 export type ConfirmationState = {
   title: string;
@@ -15,7 +13,11 @@ export type ConfirmationState = {
   cancelButtonText?: string;
 };
 
-export const useConfirmation = () => {
+export const useConfirmation = ({
+  modalProps,
+}: {
+  modalProps?: ModalProps;
+} = {}) => {
   const [confirmationState, setConfirmationState] =
     useState<ConfirmationState | null>(null);
 
@@ -24,7 +26,7 @@ export const useConfirmation = () => {
   };
 
   const modalContent = confirmationState ? (
-    <Modal isOpen onClose={handleClose}>
+    <Modal isOpen onClose={handleClose} {...modalProps}>
       <ConfirmContent
         title={confirmationState.title}
         message={confirmationState?.message}
