@@ -3,8 +3,9 @@ import { useState } from "react";
 
 import { InteractiveQuestion } from "embedding-sdk/components/public/InteractiveQuestion";
 import { Box, Group, Overlay, Paper, Tabs } from "metabase/ui";
-import type { NotebookProps } from "../InteractiveQuestion/components";
+
 import type { InteractiveQuestionProps } from "../../public/InteractiveQuestion";
+import type { NotebookProps } from "../InteractiveQuestion/components";
 import { useInteractiveQuestionContext } from "../InteractiveQuestion/context";
 
 export type QuestionEditorProps = Pick<NotebookProps, "models">;

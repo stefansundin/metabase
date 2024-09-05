@@ -5,20 +5,25 @@ import { t } from "ttag";
 import { Icon, Popover, Tooltip } from "metabase/ui";
 import * as Lib from "metabase-lib";
 
-import { NotebookCellItem } from "../../NotebookCell";
-import { NotebookDataPicker } from "../../NotebookDataPicker";
+import {
+  NotebookCellItem,
+  type NotebookCellItemProps,
+} from "../../NotebookCell";
+import {
+  NotebookDataPicker,
+  type NotebookDataPickerProps,
+} from "../../NotebookDataPicker";
 
 import { ColumnPickerButton } from "./JoinTablePicker.styled";
 
-interface JoinTablePickerProps {
-  query: Lib.Query;
-  stageIndex: number;
-  table: Lib.Joinable | undefined;
-  color: string;
+export type JoinTablePickerProps = {
   isReadOnly: boolean;
-  columnPicker: ReactNode;
-  onChange: (table: Lib.Joinable) => void;
-}
+} & Pick<NotebookCellItemProps, "color"> &
+  JoinTableColumnPickerProps &
+  Pick<
+    NotebookDataPickerProps,
+    "table" | "query" | "stageIndex" | "onChange" | "models"
+  >;
 
 export function JoinTablePicker({
   query,
@@ -28,6 +33,7 @@ export function JoinTablePicker({
   isReadOnly,
   columnPicker,
   onChange,
+  models,
 }: JoinTablePickerProps) {
   const databaseId = useMemo(() => Lib.databaseID(query), [query]);
   const isDisabled = isReadOnly;
@@ -56,14 +62,15 @@ export function JoinTablePicker({
         placeholder={t`Pick data…`}
         isDisabled={isDisabled}
         onChange={onChange}
+        models={models}
       />
     </NotebookCellItem>
   );
 }
 
-interface JoinTableColumnPickerProps {
+export type JoinTableColumnPickerProps = {
   columnPicker: ReactNode;
-}
+};
 
 function JoinTableColumnPicker({ columnPicker }: JoinTableColumnPickerProps) {
   const [isOpened, setIsOpened] = useState(false);

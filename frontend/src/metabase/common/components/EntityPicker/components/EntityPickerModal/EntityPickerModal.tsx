@@ -233,7 +233,7 @@ export function EntityPickerModal<
                 setShowActionButtons={setShowActionButtons}
               />
             ) : (
-              <SinglePickerView>{tabs[0].element}</SinglePickerView>
+              <SinglePickerView>{tabs?.[0]?.element}</SinglePickerView>
             )}
             {!!hydratedOptions.hasConfirmButtons && onConfirm && (
               <ButtonBar

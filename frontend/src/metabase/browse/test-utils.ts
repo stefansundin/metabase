@@ -12,6 +12,6 @@ export const createMockModelResult = (
   createMockSearchResult({ ...model, model: "dataset" }) as ModelResult;
 
 export const createMockRecentModel = (
-  model: Partial<RecentCollectionItem>,
+  model: Partial<RecentCollectionItem> = {},
 ): RecentModel =>
   createMockRecentCollectionItem({ ...model, model: "dataset" }) as RecentModel;

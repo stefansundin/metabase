@@ -14,6 +14,7 @@ export function JoinStep({
   color,
   readOnly: isReadOnly = false,
   updateQuery,
+  models,
 }: NotebookSingleStepProps) {
   const joins = useMemo(
     () => Lib.joins(query, stageIndex),
@@ -44,6 +45,7 @@ export function JoinStep({
       isReadOnly={isReadOnly}
       onJoinChange={handleUpdateJoin}
       onQueryChange={updateQuery}
+      models={models}
     />
   ) : (
     <JoinDraft
@@ -52,6 +54,7 @@ export function JoinStep({
       color={color}
       isReadOnly={isReadOnly}
       onJoinChange={handleAddJoin}
+      models={models}
     />
   );
 }

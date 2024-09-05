@@ -16,7 +16,7 @@ export const NotebookCell = Object.assign(_NotebookCell, {
   CONTAINER_PADDING,
 });
 
-interface NotebookCellItemProps {
+export type NotebookCellItemProps = {
   color: string;
   inactive?: boolean;
   readOnly?: boolean;
@@ -28,7 +28,7 @@ interface NotebookCellItemProps {
   onClick?: React.MouseEventHandler;
   "data-testid"?: string;
   ref?: React.Ref<HTMLDivElement>;
-}
+};
 
 export const NotebookCellItem = forwardRef<
   HTMLDivElement,

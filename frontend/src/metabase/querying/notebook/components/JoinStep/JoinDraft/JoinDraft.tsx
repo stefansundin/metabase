@@ -6,6 +6,7 @@ import { Box, Flex, Text } from "metabase/ui";
 import * as Lib from "metabase-lib";
 
 import { NotebookCellItem } from "../../NotebookCell";
+import type { NotebookDataPickerProps } from "../../NotebookDataPicker";
 import { JoinConditionDraft } from "../JoinConditionDraft";
 import { JoinStrategyPicker } from "../JoinStrategyPicker";
 import { JoinTableColumnDraftPicker } from "../JoinTableColumnDraftPicker";
@@ -14,7 +15,7 @@ import { JoinTablePicker } from "../JoinTablePicker";
 import { JoinCell, JoinConditionCell } from "./JoinDraft.styled";
 import { getDefaultJoinStrategy, getJoinFields } from "./utils";
 
-interface JoinDraftProps {
+export type JoinDraftProps = {
   query: Lib.Query;
   stageIndex: number;
   color: string;
@@ -22,7 +23,7 @@ interface JoinDraftProps {
   initialRhsTable?: Lib.Joinable;
   isReadOnly: boolean;
   onJoinChange: (join: Lib.Join) => void;
-}
+} & Pick<NotebookDataPickerProps, "models">;
 
 export function JoinDraft({
   query,
@@ -32,6 +33,7 @@ export function JoinDraft({
   initialRhsTable,
   isReadOnly,
   onJoinChange,
+  models,
 }: JoinDraftProps) {
   const databaseId = Lib.databaseID(query);
   const [strategy, setStrategy] = useState(
@@ -136,6 +138,7 @@ export function JoinDraft({
               />
             }
             onChange={handleTableChange}
+            models={models}
           />
         </Flex>
       </JoinCell>

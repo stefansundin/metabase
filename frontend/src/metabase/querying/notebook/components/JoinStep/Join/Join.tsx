@@ -2,19 +2,25 @@ import { useMemo, useState } from "react";
 
 import * as Lib from "metabase-lib";
 
-import { JoinComplete } from "../JoinComplete";
-import { JoinDraft } from "../JoinDraft";
+import { JoinComplete, type JoinCompleteProps } from "../JoinComplete";
+import { JoinDraft, type JoinDraftProps } from "../JoinDraft";
 
-interface JoinProps {
-  query: Lib.Query;
-  stageIndex: number;
-  join: Lib.Join;
-  joinPosition: number;
-  color: string;
-  isReadOnly: boolean;
-  onJoinChange: (newJoin: Lib.Join) => void;
-  onQueryChange: (newQuery: Lib.Query) => void;
-}
+type JoinProps = Pick<
+  JoinDraftProps,
+  "query" | "stageIndex" | "color" | "isReadOnly" | "models"
+> &
+  Pick<
+    JoinCompleteProps,
+    | "query"
+    | "stageIndex"
+    | "join"
+    | "joinPosition"
+    | "onJoinChange"
+    | "color"
+    | "isReadOnly"
+    | "onQueryChange"
+    | "models"
+  >;
 
 export function Join({
   query,
@@ -25,6 +31,7 @@ export function Join({
   isReadOnly,
   onJoinChange,
   onQueryChange,
+  models,
 }: JoinProps) {
   const draftStrategy = useMemo(() => Lib.joinStrategy(join), [join]);
   const [draftRhsTable, setDraftRhsTable] = useState<Lib.Joinable>();
@@ -44,6 +51,7 @@ export function Join({
         initialRhsTable={draftRhsTable}
         isReadOnly={isReadOnly}
         onJoinChange={handleJoinChange}
+        models={models}
       />
     );
   }
@@ -59,6 +67,7 @@ export function Join({
       onJoinChange={handleJoinChange}
       onQueryChange={onQueryChange}
       onDraftRhsTableChange={setDraftRhsTable}
+      models={models}
     />
   );
 }

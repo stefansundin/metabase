@@ -9,11 +9,11 @@ import { JoinCondition } from "../JoinCondition";
 import { JoinConditionDraft } from "../JoinConditionDraft";
 import { JoinStrategyPicker } from "../JoinStrategyPicker";
 import { JoinTableColumnPicker } from "../JoinTableColumnPicker";
-import { JoinTablePicker } from "../JoinTablePicker";
+import { JoinTablePicker, type JoinTablePickerProps } from "../JoinTablePicker";
 
 import { JoinCell, JoinConditionCell } from "./JoinComplete.styled";
 
-interface JoinCompleteProps {
+export type JoinCompleteProps = {
   query: Lib.Query;
   stageIndex: number;
   join: Lib.Join;
@@ -23,7 +23,7 @@ interface JoinCompleteProps {
   onJoinChange: (newJoin: Lib.Join) => void;
   onQueryChange: (newQuery: Lib.Query) => void;
   onDraftRhsTableChange: (newTable: Lib.Joinable) => void;
-}
+} & Pick<JoinTablePickerProps, "models">;
 
 export function JoinComplete({
   query,
@@ -35,6 +35,7 @@ export function JoinComplete({
   onJoinChange,
   onQueryChange,
   onDraftRhsTableChange,
+  models,
 }: JoinCompleteProps) {
   const strategy = useMemo(() => Lib.joinStrategy(join), [join]);
   const rhsTable = useMemo(() => Lib.joinedThing(query, join), [query, join]);
@@ -123,6 +124,7 @@ export function JoinComplete({
                 onChange={onQueryChange}
               />
             }
+            models={models}
             onChange={handleTableChange}
           />
         </Flex>

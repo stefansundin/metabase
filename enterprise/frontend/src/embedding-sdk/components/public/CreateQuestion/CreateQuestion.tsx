@@ -1,8 +1,7 @@
 import {
   QuestionEditor,
-  QuestionEditorProps,
-} from "embedding-sdk/components/private/QuestionEditor";
-
+  type QuestionEditorProps,
+} from "../../private/QuestionEditor";
 import type { InteractiveQuestionProps } from "../InteractiveQuestion";
 
 type CreateQuestionProps = Omit<InteractiveQuestionProps, "questionId"> &

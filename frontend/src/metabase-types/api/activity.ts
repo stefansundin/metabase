@@ -53,6 +53,7 @@ export interface RecentCollectionItem extends BaseRecentItem {
   authority_level?: "official" | null; // for collections
   moderated_status?: "verified" | null; // for models
   display?: CardDisplayType; // for questions
+  display_name?: never;
 }
 
 export type RecentItem = RecentTableItem | RecentCollectionItem;
